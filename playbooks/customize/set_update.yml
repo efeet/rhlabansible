@@ -1,27 +1,22 @@
----
 # Playbook for setting up machine againts RH Satellite 6.x
-- name: Setting up machine against RHS 
+---
+- name: Setting up machine against RHS
   hosts: vms
-
   tasks:
     - name: Include the vars file
       include_vars: vars/vars.yml
-
     - name: Install the consumer RPM for SS
-      shell: "rpm -Uvh http://srv5.tsmx.lab/pub/katello-ca-consumer-latest.noarch.rpm"
-
+      shell: "rpm -Uvh http://srv.example.lab/pub/katello-ca-consumer-latest.noarch.rpm" # Replace with you rpm URL
     - name: Register machine
       redhat_subscription:
         state: present
         username: admin
         password: "{{ password }}"
-        pool: "Employee SKU"
+        pool: "Employee Example" # Replace with you RH Pool Name
     - name: Disable all repos
       shell: "subscription-manager repos --disable=*"
-
     - name: Enable RHEL7 ans Satellite tools repos
       shell: "subscription-manager repos --enable rhel-7-server-rpms --enable rhel-7-server-satellite-tools-6.4-rpms"
-
     - name: Install the required packages
       yum:
         name: "{{ item }}"

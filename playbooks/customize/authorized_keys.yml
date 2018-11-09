@@ -1,3 +1,5 @@
+# Playbook to set authorized keys
+---
 - name: Set authorized key
   hosts: all
   tasks:
@@ -5,4 +7,4 @@
       authorized_key:
         user=root
         state=present
-        key="{{ lookup('file', 'id_rsa_ansible.pub') }}"
+        key="{{ lookup('file', 'my_key.pub') }}" # Replace my_key.pub with you file key name

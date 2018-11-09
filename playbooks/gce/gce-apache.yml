@@ -1,11 +1,13 @@
-- name: Playbook test to create gce instance with apache
+# Playbook to create GCE instance with Apache
+---
+- name: Playbook to create gce instance with apache
   hosts: localhost
   connection: local
   gather_facts: true
   vars:
-    service_account_email: labansible@laboratorioansible.iam.gserviceaccount.com
-    credentials_file: laboratorioansible-GCE.json
-    project_id: laboratorioansible
+    service_account_email: example@example.lab.gserviceaccount.com  # Replace with you CGE Account Service
+    credentials_file: example.json # Replace with you GCE User JSON Key File
+    project_id: example # Replace with you GCE Project ID
     instance_names: web01,web02,web03
     machine_type: n1-standard-1
     image: centos-7
@@ -33,7 +35,7 @@
         service_account_email: "{{ service_account_email }}"
         credentials_file: "{{ credentials_file }}"
         project_id: "{{ project_id }}"
-        metadata: '{"sshKeys":"sanchez_uzziel:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDqTHeotYWoRljGicwi34Tqx4O3MVHVfSPPSxtdYhjbG+s1PK7qbN3tgMbpnwg0XN3fDJrugnH+CP3sSTniKEquniosT271HplZfOa3ANBebildLdKYsl4lWuSmNtwFeCJznrAGJkiC2E9WAQprm0QbrOWytAMFQTW/59lbgMScwvxC9ZbW8Wespx8gzUuAesOR8GRF+RulSGG979vGggX1EeZGFwj9xUL0Bl0C2DqxnyQEhAATHuZDEZognvQD+u40qx9DkD7yB3ut7Ru11rcdpGvcTubqQnNO4GSM2IkqkoS/mbUGsA3B5dXKI2oh8XW+uMIc8l3bTbHaqcjrKxw6OiK+0ZsCnB71xs7VhWukjFvgGILolKF0pU79oqZLL0kPHbrQkZtXmfSlCQ1GdDVbcAort8BDjgj7xOfSdiqMLMM4yrvbp0tnSaWcyyZENVYmCFkzwpHCK13KCkc9jRKF7JHKVP8Nzy0+gvVWkyqzniZzWU0p0tAGPRzH0/LQN9E5gYItDjnIp4gGROfzyf/JSlggEdzNPLMr5i3V9iUQcYclH3YxCl/yw5BQBkFS9U/V4Q5uzODb6ryZA2FlHdnXT6mkfB+Lv84qVn35J4vtkllkxHZT9HEFhuTuJk6VLF6pC6wAZ9hfervAvrDzIr8OwWD14l+tWv0HMhQG+eMItw== uzsanche@srv5.tsmx.lab"}'
+        metadata: '{"sshKeys":"gmail_user:ssh-rsa"}' # Replace gmail_user with you GCE Account User. ssh-rsa with you ssh-rsa computer.
       register: gce
     - name: Save host data within a Group
       add_host:
@@ -49,7 +51,7 @@
 - name: Configure instance post-creation
   hosts: gce_instances_temp
   gather_facts: true
-  remote_user: sanchez_uzziel
+  remote_user: gmail_user # Replace with you GCE Account User
   become: yes
   become_method: sudo
   roles:

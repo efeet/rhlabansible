@@ -1,11 +1,13 @@
-- name: Playbook test to create gce instance
+# Playbook to create alone GCE instance
+---
+- name: Playbook to create alone gce instance
   hosts: localhost
   connection: local
   gather_facts: no
   vars:
-    service_account_email: labansible@laboratorioansible.iam.gserviceaccount.com
-    credentials_file: laboratorioansible-GCE.json
-    project_id: laboratorioansible
+    service_account_email: example@example.lab.gserviceaccount.com  # Replace with you CGE Account Service
+    credentials_file: example.json # Replace with you GCE User JSON Key File
+    project_id: example # Replace with you GCE Project ID
     machine_type: n1-standard-1
     image: centos-7
   tasks:

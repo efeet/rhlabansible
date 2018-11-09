@@ -1,7 +1,9 @@
+# Playbook to set hostname
+---
 - name: Set hostname
   hosts: servers
   vars:
-      hostname: vm-*.tsmx.lab
+      hostname: vm-*.example.lab # Replace with you vms names
   tasks:
     - name: Set the hostname
       hostname: name={{ hostname.replace('*', ansible_all_ipv4_addresses[0].split('.')[3]) }}
