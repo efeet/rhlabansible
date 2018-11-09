@@ -1,0 +1,3 @@
+---
+# defaults file for ansibleweb
+apache_enable: true

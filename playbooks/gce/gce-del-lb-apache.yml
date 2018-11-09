@@ -1,0 +1,35 @@
+- name: Playbook to remove gce LoadBalancer
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    service_account_email: labansible@laboratorioansible.iam.gserviceaccount.com
+    credentials_file: laboratorioansible-GCE.json
+    project_id: laboratorioansible
+    instance_names: web01,web02,web03
+    machine_type: n1-standard-1
+  tasks:
+    - name: Delete firewall rule allow http traffic
+      gce_net:
+        name: default
+        fwname: "my-http-fw-rule"
+        state: absent
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+    - name: Delete GCE Load Balancer
+      gce_lb:
+        name: lbserver
+        state: absent
+        region: us-east1
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+    - name: Deleting the instances "{{ instance_names }}"
+      gce:
+        zone: us-east1-b
+        instance_names: "{{ instance_names }}"
+        state: absent
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"

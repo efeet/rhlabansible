@@ -1,0 +1,21 @@
+- name: Playbook test to create gce instance
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  vars:
+    service_account_email: labansible@laboratorioansible.iam.gserviceaccount.com
+    credentials_file: laboratorioansible-GCE.json
+    project_id: laboratorioansible
+    machine_type: n1-standard-1
+    image: centos-7
+  tasks:
+    - name: vmwebgce01
+      gce:
+        zone: us-east1-b
+        instance_names: vmwebgce01
+        machine_type: "{{ machine_type }}"
+        image: "{{ image }}"
+        service_account_email: "{{ service_account_email }}"
+        credentials_file: "{{ credentials_file }}"
+        project_id: "{{ project_id }}"
+        metadata: '{"sshKeys":"sanchez_uzziel:ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDqTHeotYWoRljGicwi34Tqx4O3MVHVfSPPSxtdYhjbG+s1PK7qbN3tgMbpnwg0XN3fDJrugnH+CP3sSTniKEquniosT271HplZfOa3ANBebildLdKYsl4lWuSmNtwFeCJznrAGJkiC2E9WAQprm0QbrOWytAMFQTW/59lbgMScwvxC9ZbW8Wespx8gzUuAesOR8GRF+RulSGG979vGggX1EeZGFwj9xUL0Bl0C2DqxnyQEhAATHuZDEZognvQD+u40qx9DkD7yB3ut7Ru11rcdpGvcTubqQnNO4GSM2IkqkoS/mbUGsA3B5dXKI2oh8XW+uMIc8l3bTbHaqcjrKxw6OiK+0ZsCnB71xs7VhWukjFvgGILolKF0pU79oqZLL0kPHbrQkZtXmfSlCQ1GdDVbcAort8BDjgj7xOfSdiqMLMM4yrvbp0tnSaWcyyZENVYmCFkzwpHCK13KCkc9jRKF7JHKVP8Nzy0+gvVWkyqzniZzWU0p0tAGPRzH0/LQN9E5gYItDjnIp4gGROfzyf/JSlggEdzNPLMr5i3V9iUQcYclH3YxCl/yw5BQBkFS9U/V4Q5uzODb6ryZA2FlHdnXT6mkfB+Lv84qVn35J4vtkllkxHZT9HEFhuTuJk6VLF6pC6wAZ9hfervAvrDzIr8OwWD14l+tWv0HMhQG+eMItw== uzsanche@srv5.tsmx.lab"}'

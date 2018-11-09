@@ -1,0 +1,17 @@
+- name: Set IPv4
+  hosts: servers
+  tasks:
+
+    - name: Copy a new network file, backing up the orifinal
+      copy:
+        src: ifcfg-ethX.txt
+        dest: /etc/sysconfig/network-scripts/ifcfg-eth0
+        owner: root
+        group: root
+        mode: 0644
+        backup: yes
+
+    - name: Restart Network
+      service:
+        name: network
+        state: restarted
